@@ -32,15 +32,15 @@ public class Service {
         final String db_query = "SELECT * FROM pessoa";
         ResultSet resultSet = this.mySql.consultar(db_query);
         while (resultSet.next()) {
-            pessoas.add(resultSet.getString(1) + " " + resultSet.getString(2) + " " + resultSet.getString(3) + " "
+            pessoas.add("RA: " + resultSet.getString(1) + " | Nome: " + resultSet.getString(2) + " | Email: " + resultSet.getString(3) + " | Função: "
                     + resultSet.getString(4));
         }
         return pessoas;
     }
 
-    public void novaPessoa(String nome, String funcao, String ra) throws SQLException {
+    public void novaPessoa(String nome, String funcao, String email) throws SQLException {
         cod_pessoa = gerador.nextInt();
-        String db_query = " INSERT INTO pessoa VALUES ( " + cod_pessoa + ",'" + nome + "','" + ra + "','" + funcao +"' )";
+        String db_query = " INSERT INTO pessoa VALUES ( " + cod_pessoa + ",'" + nome + "','" + email + "','" + funcao +"' )";
         System.out.println(db_query);
         this.mySql.inserirAlterarExcluir(db_query);
     }

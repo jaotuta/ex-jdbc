@@ -23,6 +23,7 @@ public class MySql implements InterfaceBancoDados {
     @Override
     public void desconectar() throws SQLException {
         c.close();
+        System.out.println("Desconectado ao Banco.");
     }
 
     @Override
