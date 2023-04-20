@@ -1,12 +1,7 @@
 package com.example;
-
 import java.sql.SQLException;
 import java.util.List;
-
 import javax.swing.JOptionPane;
-
-import com.example.MySql.MySql;
-
 
 public class App {
 
@@ -30,14 +25,14 @@ public class App {
                         String nome;
                         String funcao;
                         String email;
-                        nome = JOptionPane.showInputDialog(null, "Nome");
-                        funcao = JOptionPane.showInputDialog(null, "Aluno ou Professor??");
-                        email = JOptionPane.showInputDialog(null, "Email");
+                        nome = JOptionPane.showInputDialog(null, "Nome", "Universidade", 1);
+                        funcao = JOptionPane.showInputDialog(null, "Aluno ou Professor??", "Universidade", 1);
+                        email = JOptionPane.showInputDialog(null, "Email", "Universidade", 1);
                         int confirmacao = JOptionPane.showConfirmDialog(null, "Dados: \n Nome: " + nome + "\n Função: "
-                                + funcao + "\n RA: " + email + "\n Confirmar cadastro ? ");
+                                + funcao + "\n Email: " + email + "\n Confirmar cadastro ? ", "Universidade", 1);
                         if (confirmacao == 0) {
-                            //service.novaPessoa(nome, funcao, ra);
-                            JOptionPane.showMessageDialog(null, "Cadastro realizado !!!");
+                            service.novaPessoa(nome, funcao, email);
+                            JOptionPane.showMessageDialog(null, "Cadastro realizado !!!", "Universidade", 1);
                         }
                         System.out.println(nome + funcao + email);
                     }
@@ -45,29 +40,64 @@ public class App {
                     case 2: {
                         String renderData = "";
                         List<String> dados = service.consultar();
-                        for ( String pessoa : dados) {
+                        for (String pessoa : dados) {
                             renderData += "\n" + pessoa;
                         }
 
                         JOptionPane.showMessageDialog(null, renderData);
                     }
-                    break;
+                        break;
                     case 3: {
-                        JOptionPane.showInputDialog(null, "Digite o RA !!!");
-                        JOptionPane.showMessageDialog(null, "Dados da busca.");
+                        String renderData = "";
+                        String nomeBusca = JOptionPane.showInputDialog(null, "Digite o nome.", "Universidade", 1);
+                        List<String> dados = service.buscarPessoa(nomeBusca);
+                        for (String pessoa : dados) {
+                            renderData += "\n" + pessoa;
+                        }
+                        if (dados.size() > 1) {
+                            JOptionPane.showMessageDialog(null, renderData, "Universidade", 1);
+                        } else if(dados.size() > 0) {
+                            int retorno = java.lang.Integer.parseInt(JOptionPane.showInputDialog(null,
+                                    renderData + "\n [1] - Voltar \n [2] - Editar \n [3] - Excluir", "Universidade",
+                                    1));
+                            if (retorno == 2) {
+                                String[] preId = renderData.split("  ");
+                                System.out.println(preId[1]);
+                                String novoNome = JOptionPane.showInputDialog(null, "Nome:", preId[3]);
+                                String novoEmail = JOptionPane.showInputDialog(null, "Email:", preId[5]);
+                                String novoFunc = JOptionPane.showInputDialog(null, "Função:", preId[7]);
+                                service.attPessoa(preId[1], novoNome, novoFunc, novoEmail);
+                                JOptionPane.showMessageDialog(null, "Contato alterado com sucesso!", "Universidade", 1);
+                            }
+                            if (retorno == 3) {
+                                String[] preId = renderData.split("  ");
+                                int confirmacao = JOptionPane.showConfirmDialog(null,
+                                        "Dados: \n Nome: " + preId[3] + "\n Função: "
+                                                + preId[7] + "\n Email: " + preId[5] + "\n Certeza que deseja excluir o usuário ? ",
+                                        "Universidade", 1);
+                                if (confirmacao == 0) {
+                                    service.excluirPessoa(java.lang.Integer.parseInt(preId[1]));
+                                    JOptionPane.showMessageDialog(null, "Usuário excluido com sucesso.");
+                                }
+
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Nenhum usuário encontrado");
+                        }
                     }
-                    break;
+                        break;
                     case 4: {
-                        JOptionPane.showMessageDialog(null, "Obrigado por utilizar nosso sistema. !!!");
+                        JOptionPane.showMessageDialog(null, "Obrigado por utilizar nosso sistema. !!!", "Universidade",
+                                1);
                         service.desconectar();
                     }
-                    break;
+                        break;
                     default: {
-                        JOptionPane.showMessageDialog(null, "Entrada inválida.");
+                        JOptionPane.showMessageDialog(null, "Entrada inválida.", "Universidade", 1);
                     }
 
                 }
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Entrada inválida.", "Universidade UFN", 1);
             }
 

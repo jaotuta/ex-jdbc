@@ -1,7 +1,5 @@
 package com.example;
-
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -38,15 +36,31 @@ public class Service {
         return pessoas;
     }
 
-    public void novaPessoa(String nome, String funcao, String email) throws SQLException {
-        cod_pessoa = gerador.nextInt();
-        String db_query = " INSERT INTO pessoa VALUES ( " + cod_pessoa + ",'" + nome + "','" + email + "','" + funcao +"' )";
-        System.out.println(db_query);
-        this.mySql.inserirAlterarExcluir(db_query);
+    public List<String> buscarPessoa(String nome) throws SQLException {
+        List<String> pessoas = new ArrayList<>();
+        final String db_query = "SELECT * FROM pessoa WHERE nome LIKE '%"+nome+"%'";
+        ResultSet resultSet = this.mySql.consultar(db_query);
+        while (resultSet.next()) {
+            pessoas.add("RA:  " + resultSet.getString(1) + "  | Nome:  " + resultSet.getString(2) + "  | Email:  " + resultSet.getString(3) + "  | Função:  "
+                    + resultSet.getString(4));
+        }
+        return pessoas;
     }
 
-    public void excluirPessoa(int id) {
-
+    public void novaPessoa(String nome, String funcao, String email) throws SQLException {
+        cod_pessoa = gerador.nextInt(100001, 999999);
+        String db_query = " INSERT INTO pessoa VALUES ( " + cod_pessoa + ",'" + nome + "','" + email + "','" + funcao +"' )";
+        this.mySql.inserirAlterarExcluir(db_query);
+    }
+    
+    public void attPessoa(String id, String nome, String funcao, String email) throws SQLException {
+        String db_query = " UPDATE pessoa SET nome= '"+nome+"', email='"+email+"', cargo='"+funcao+"' WHERE ID ="+ id;
+        this.mySql.inserirAlterarExcluir(db_query);
+        
+    }
+    public void excluirPessoa(int id) throws SQLException {
+        String db_query = "DELETE FROM pessoa WHERE ID =" + id;
+        this.mySql.inserirAlterarExcluir(db_query);
     }
 
 

@@ -28,11 +28,9 @@ public class MySql implements InterfaceBancoDados {
 
     @Override
     public ResultSet consultar(String db_query) throws SQLException {
-
         PreparedStatement ps = c.prepareStatement(db_query);
         ResultSet resultSet = ps.executeQuery();
         return resultSet;
-
     }
 
     @Override
