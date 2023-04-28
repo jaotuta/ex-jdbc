@@ -1,0 +1,32 @@
+abr. 27, 2023 9:35:27 PM com.example.MySql.MySql conectar
+INFO: Método Conectar, a conexão com o banco será estabelecida
+abr. 27, 2023 9:35:27 PM com.example.MySql.MySql conectar
+INFO: Conexão com o Banco realizada com sucesso
+abr. 27, 2023 9:35:32 PM com.example.App main
+INFO: Operação de cadastro todos selecionada
+abr. 27, 2023 9:35:50 PM com.example.MySql.MySql inserirAlterarExcluir
+INFO: Requisição de inserirAlterarExcluir realizada com sucesso com a seguinte query:  INSERT INTO pessoa VALUES ( 30364,'Josias de Araujo','josias@ufn.edu.br','Professor' )
+abr. 27, 2023 9:35:51 PM com.example.MySql.MySql conectar
+INFO: Método Conectar, a conexão com o banco será estabelecida
+abr. 27, 2023 9:35:51 PM com.example.MySql.MySql conectar
+INFO: Conexão com o Banco realizada com sucesso
+abr. 27, 2023 9:35:52 PM com.example.App main
+INFO: Operação de buscar todos selecionada
+abr. 27, 2023 9:35:52 PM com.example.MySql.MySql consultar
+INFO: Requisição de consulta realizada com sucesso
+abr. 27, 2023 9:35:53 PM com.example.MySql.MySql conectar
+INFO: Método Conectar, a conexão com o banco será estabelecida
+abr. 27, 2023 9:35:53 PM com.example.MySql.MySql conectar
+INFO: Conexão com o Banco realizada com sucesso
+abr. 27, 2023 9:35:54 PM com.example.App main
+INFO: Operação de busca por nome selecionada
+abr. 27, 2023 9:35:56 PM com.example.MySql.MySql consultar
+INFO: Requisição de consulta realizada com sucesso
+abr. 27, 2023 9:36:04 PM com.example.MySql.MySql inserirAlterarExcluir
+INFO: Requisição de inserirAlterarExcluir realizada com sucesso com a seguinte query:  UPDATE pessoa SET nome= 'Josias de Araujo Pereira', email='josias@ufn.edu.br', cargo='Professor' WHERE ID =30364
+abr. 27, 2023 9:36:04 PM com.example.MySql.MySql conectar
+INFO: Método Conectar, a conexão com o banco será estabelecida
+abr. 27, 2023 9:36:04 PM com.example.MySql.MySql conectar
+INFO: Conexão com o Banco realizada com sucesso
+abr. 27, 2023 9:36:06 PM com.example.App main
+INFO: Operação de finalizar aplicação selecionada

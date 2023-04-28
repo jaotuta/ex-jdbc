@@ -1,6 +1,8 @@
 package com.example;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class App {
@@ -9,7 +11,8 @@ public class App {
         return str != null && str.matches("[0-9]*");
     }
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, IOException {
+
         int opcao = 0;
         while (opcao != 4) {
             Service service = new Service();
@@ -19,9 +22,9 @@ public class App {
                     "Universidade", 1);
             if (isInteger(resposta)) {
                 opcao = java.lang.Integer.parseInt(resposta);
-                System.out.println(opcao);
                 switch (opcao) {
                     case 1: {
+                        com.example.MySql.Logger.getLog().logger.info("Operação de cadastro todos selecionada");
                         String nome;
                         String funcao;
                         String email;
@@ -34,10 +37,10 @@ public class App {
                             service.novaPessoa(nome, funcao, email);
                             JOptionPane.showMessageDialog(null, "Cadastro realizado !!!", "Universidade", 1);
                         }
-                        System.out.println(nome + funcao + email);
                     }
                         break;
                     case 2: {
+                        com.example.MySql.Logger.getLog().logger.info("Operação de buscar todos selecionada");
                         String renderData = "";
                         List<String> dados = service.consultar();
                         for (String pessoa : dados) {
@@ -48,6 +51,7 @@ public class App {
                     }
                         break;
                     case 3: {
+                        com.example.MySql.Logger.getLog().logger.info("Operação de busca por nome selecionada");
                         String renderData = "";
                         String nomeBusca = JOptionPane.showInputDialog(null, "Digite o nome.", "Universidade", 1);
                         List<String> dados = service.buscarPessoa(nomeBusca);
@@ -62,7 +66,6 @@ public class App {
                                     1));
                             if (retorno == 2) {
                                 String[] preId = renderData.split("  ");
-                                System.out.println(preId[1]);
                                 String novoNome = JOptionPane.showInputDialog(null, "Nome:", preId[3]);
                                 String novoEmail = JOptionPane.showInputDialog(null, "Email:", preId[5]);
                                 String novoFunc = JOptionPane.showInputDialog(null, "Função:", preId[7]);
@@ -87,17 +90,20 @@ public class App {
                     }
                         break;
                     case 4: {
+                        com.example.MySql.Logger.getLog().logger.info("Operação de finalizar aplicação selecionada");
                         JOptionPane.showMessageDialog(null, "Obrigado por utilizar nosso sistema. !!!", "Universidade",
                                 1);
                         service.desconectar();
                     }
                         break;
                     default: {
+                        com.example.MySql.Logger.getLog().logger.info("Entrada não permitida");
                         JOptionPane.showMessageDialog(null, "Entrada inválida.", "Universidade", 1);
                     }
 
                 }
             } else {
+                com.example.MySql.Logger.getLog().logger.info("Opção do menu não permitida");
                 JOptionPane.showMessageDialog(null, "Entrada inválida.", "Universidade UFN", 1);
             }
 

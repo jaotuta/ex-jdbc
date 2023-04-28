@@ -1,4 +1,5 @@
 package com.example;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,6 +17,10 @@ public class Service {
     final  String db_password = "";
     public  int cod_pessoa;
     Random gerador = new Random();
+
+    public Service() throws IOException {
+
+    }
 
     public void conectar() throws SQLException {
         this.mySql.conectar(this.db_url, this.db_user, this.db_password);
@@ -48,7 +53,7 @@ public class Service {
     }
 
     public void novaPessoa(String nome, String funcao, String email) throws SQLException {
-        cod_pessoa = gerador.nextInt(100001, 999999);
+        cod_pessoa = gerador.nextInt(100000);
         String db_query = " INSERT INTO pessoa VALUES ( " + cod_pessoa + ",'" + nome + "','" + email + "','" + funcao +"' )";
         this.mySql.inserirAlterarExcluir(db_query);
     }
